@@ -16,14 +16,19 @@ public class MyArrayList<T> {
         } else {
             array2 = new Object[last*2];
             System.arraycopy(array, 0 , array2, 0, array.length);
+            array2 = null;
         }
     }
 
     public void add(int index, T item) {
         if(outOfBounds(index)) {
-            //copy
-            array[index] = item;
-            //create
+            array2 = new Object[array.length + 1];
+            System.arraycopy(array, 0 , array2, 0, index - 1);
+            array2[index] = item;
+            System.arraycopy(array, index, array2, index + 1, array.length - index);
+            array = new Object[array.length + 1];
+            System.arraycopy(array2, 0, array, 0, array.length);
+            array2 = null;
         } else {
             throw new IndexOutOfBoundsException("out of bounds");
         }
@@ -31,9 +36,7 @@ public class MyArrayList<T> {
 
     public void set(int index, T item) {
         if(outOfBounds(index)) {
-            //copy
             array[index] = item;
-            //create
         } else {
             throw new IndexOutOfBoundsException("out of bounds");
         }
@@ -41,7 +44,11 @@ public class MyArrayList<T> {
 
     public void delete(int index) {
         if(outOfBounds(index)) {
-
+            array2 = new Object[array.length];
+            System.arraycopy(array, 0, array2, 0 , index);
+            System.arraycopy(array, index + 1, array2, index, array.length - index);
+            System.arraycopy(array2, 0, array, 0, array.length);
+            array2 = null;
         } else {
             throw new IndexOutOfBoundsException("out of bounds");
         }
