@@ -2,6 +2,7 @@ package ru.pavel.algorithms;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -12,6 +13,9 @@ public class AppTest
     /**
      * Rigorous Test :-)
      */
+
+    MyArrayList<Integer> arrayList = new MyArrayList<>();
+
     @Test
     public void shouldAnswerWithTrue()
     {
