@@ -103,8 +103,35 @@ public class MyArrayList<T> {
         return last;
     }
 
-    public boolean sort() {
-        return true;
+    public boolean sortSelectionInteger() {
+        if (last < 2) {
+            return true;
+        } else  {
+
+
+
+            return true;
+        }
+    }
+
+    private Integer selectionSort (Object[] array) {
+        Integer smalest = (Integer) array[0];
+        int smallestIndex = 0;
+        for (int i = 0; i < array.length; i++) {
+            if ((Integer) array[i] < smalest) {
+                smalest = (Integer) array[i];
+                smallestIndex = i;
+            }
+        }
+        return smallestIndex;
+    }
+
+    public boolean sortQuick() {
+        if (last < 2) {
+            return true;
+        } else {
+            return true;
+        }
     }
 
     private boolean outOfBounds(int index) {
