@@ -3,7 +3,7 @@ package ru.pavel.algorithms;
 import java.util.NoSuchElementException;
 
 public class MyStack<T> {
-    int cap = 1;
+    private int cap = 1;
     private Object[] array = new Object[cap];
     private int size = 0;
 
