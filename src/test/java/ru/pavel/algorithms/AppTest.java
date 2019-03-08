@@ -23,10 +23,10 @@ public class AppTest {
         assertTrue(myArrayList.add(1));
     }
 
-    @Test
-    public void delMyArrayListAdd()
+    @Test(expected = IndexOutOfBoundsException.class)
+        public void delMyArrayListAdd()
     {
-        assertTrue(myArrayList.delete(0));
+        assertTrue(myArrayList.delete(1));
     }
 
     @Test
@@ -82,10 +82,13 @@ public class AppTest {
         assertTrue(myArrayList.add(3));
         assertTrue(myArrayList.add(4));
         assertTrue(myArrayList.add(0, 12));
-        assertTrue(myArrayList.add(5, 21));
+        assertTrue(myArrayList.add(4, 21));
         Assert.assertEquals(12, myArrayList.get(0));
-        Assert.assertEquals(2, myArrayList.get(1));
-        Assert.assertEquals(21, myArrayList.get(5));
+        Assert.assertEquals(1, myArrayList.get(1));
+        Assert.assertEquals(2, myArrayList.get(2));
+        Assert.assertEquals(3, myArrayList.get(3));
+        Assert.assertEquals(21, myArrayList.get(4));
+        Assert.assertEquals(4, myArrayList.get(5));
         assertTrue(myArrayList.add(3, 9));
         Assert.assertEquals(9, myArrayList.get(3));
     }

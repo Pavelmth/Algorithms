@@ -1,120 +1,106 @@
 package ru.pavel.algorithms;
 
 public class MyArrayList<T> {
-    private Object[] array = new Object[10];
-    private Object[] array2;
-    private int last = 0;
+    private int cap = 1;
+    private Object[] array = new Object[cap];
+    private int size = 0;
 
-    public boolean add (T item) {
-        if(outOfBounds(last)) {
-            array[last] = item;
-            if (array.length == last + 1) {
-                array2 = new Object[last*2];
-                System.arraycopy(array, 0 , array2, 0, array.length);
-                array = new Object[last*2];
-                System.arraycopy(array2, 0 , array, 0, last);
-                array2 = null;
-            }
-            last++;
+    public MyArrayList() {
+    }
+
+    public MyArrayList(int cap) {
+        this.cap = cap;
+    }
+
+    public void resize(int last) {
+        Object[] arrayTemp = new Object[last*2];
+        System.arraycopy(array, 0, arrayTemp, 0, array.length);
+        array = arrayTemp;
+        arrayTemp = null;
+    }
+
+    private boolean outOfBounds(int index) {
+        if (index < 0) {
+            return true;
+        } else if (index > array.length - 1) {
             return true;
         } else {
-            array2 = new Object[last*2];
-            System.arraycopy(array, 0 , array2, 0, array.length);
-            array2[last + 1] = item;
-            array = new Object[last*2];
-            System.arraycopy(array2, 0 , array, 0, last);
-            array2 = null;
-            return true;
+            return false;
         }
+    }
+
+    private boolean isEmpty() {
+        if (size == 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean add (T item) {
+        if(outOfBounds(size + 1)) resize(array.length);
+        array[size++] = item;
+        return true;
     }
 
     public boolean add(int index, T item) {
-        if(outOfBounds(index)) {
-            if (last == array.length) {
-                array2 = new Object[last*2];
-                System.arraycopy(array, 0 , array2, 0, array.length);
-                array = new Object[last*2];
-                System.arraycopy(array2, 0 , array, 0, last);
-                array2 = null;
-            }
-            if (index == 0) {
-                array2 = new Object[array.length];
-                System.arraycopy(array, 1 , array2, 1, last - 1);
-                array2[0] = item;
-                System.arraycopy(array2, 0, array, 0, array.length);
-                array2 = null;
-                last++;
-                return true;
-            } else if (index == last) {
-                array2 = new Object[array.length];
-                System.arraycopy(array, 0 , array2, 0, last - 1);
-                array2[last] = item;
-                System.arraycopy(array2, 0, array, 0, array.length);
-                array2 = null;
-                last++;
-                return true;
-            } else {
-                array2 = new Object[array.length];
-                System.arraycopy(array, 0 , array2, 0, index - 1);
-                array2[index] = item;
-                System.arraycopy(array, index, array2, index + 1, array.length - index - 1);
-                System.arraycopy(array2, 0, array, 0, array.length);
-                array2 = null;
-                last++;
-                return true;
-            }
-        } else {
-            throw new IndexOutOfBoundsException("out of bounds");
-        }
+        if(outOfBounds(size + 1)) resize(array.length);
+        if(outOfBounds(index) || (index > (size - 1))) throw new IndexOutOfBoundsException("out of bounds");
+        Object[] arrayTemp = new Object[array.length];
+        System.arraycopy(array, 0, arrayTemp, 0, index);
+        arrayTemp[index] = item;
+        System.arraycopy(array, index, arrayTemp, index + 1, array.length - index -1);
+        array = arrayTemp;
+        size++;
+        return true;
     }
 
     public boolean set(int index, T item) {
-        if(outOfBounds(index)) {
-            array[index] = item;
-            return true;
-        } else {
-            throw new IndexOutOfBoundsException("out of bounds");
-        }
+        if(outOfBounds(index)) throw new IndexOutOfBoundsException("out of bounds");
+        array[index] = item;
+        return true;
     }
 
     public boolean delete(int index) {
-        if(outOfBounds(index)) {
-            array2 = new Object[array.length];
-            System.arraycopy(array, 0, array2, 0, index);
-            System.arraycopy(array, index + 1, array2, index, array.length - 1);
-            System.arraycopy(array2, 0, array, 0, array.length);
-            last--;
-            array2 = null;
-            return true;
-        } else {
-            throw new IndexOutOfBoundsException("out of bounds");
-        }
+        if (outOfBounds(index)) throw new IndexOutOfBoundsException("out of bounds");
+        if (isEmpty()) {System.out.println("Array is empty");}
+        Object[] arrayTemp = new Object[array.length];
+        System.arraycopy(array, 0, arrayTemp, 0, index);
+        System.arraycopy(array, index + 1, array, index, array.length - index - 1);
+        array = arrayTemp;
+        size--;
+        return true;
     }
 
-    public T get(int index) {
-        if(outOfBounds(index)) {
-            return (T) array[index];
-        } else {
-            throw new IndexOutOfBoundsException("out of bounds");
-        }
+    public T get (int index) {
+        if(outOfBounds(index)) throw new IndexOutOfBoundsException("out of bounds");
+        return (T) array[index];
     }
+
+    // new methods
 
     public int length() {
-        return last;
+        return size;
+    }
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(array[i] + ", ");
+        }
+        return stringBuilder.toString();
     }
 
     public boolean sortSelectionInteger() {
-        if (last < 2) {
+        if (size < 2) {
             return true;
         } else  {
-
-
 
             return true;
         }
     }
 
-    private Integer selectionSort (Object[] array) {
+    private Integer selectionSort(Object[] array) {
         Integer smalest = (Integer) array[0];
         int smallestIndex = 0;
         for (int i = 0; i < array.length; i++) {
@@ -127,21 +113,11 @@ public class MyArrayList<T> {
     }
 
     public boolean sortQuick() {
-        if (last < 2) {
+        if (size < 2) {
             return true;
         } else {
             return true;
-        }
-    }
-
-    private boolean outOfBounds(int index) {
-        if (index < 0) {
-            return false;
-        }
-        if (index <= last) {
-            return true;
-        } else {
-            return false;
         }
     }
 }
+
