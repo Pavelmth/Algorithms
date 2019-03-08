@@ -45,12 +45,12 @@ public class MyQueue<T> {
     }
 
     public T peek() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is queue");
+        if (isEmpty()) throw new NoSuchElementException("Queue is empty");
         return (T) array[start];
     }
 
     public T poll() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is queue");
+        if (isEmpty()) throw new NoSuchElementException("Queue is empty");
         T item = (T) array[start];
         size--;
         start++;

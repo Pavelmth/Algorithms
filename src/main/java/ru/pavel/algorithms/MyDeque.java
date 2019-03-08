@@ -55,17 +55,17 @@ public class MyDeque<T> {
     }
 
     public T peekFirst() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is queue");
+        if (isEmpty()) throw new NoSuchElementException("Deque is empty");
         return (T) array[start];
     }
 
     public T peekLast() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is queue");
+        if (isEmpty()) throw new NoSuchElementException("Deque is empty");
         return (T) array[end - 1];
     }
 
     public T pollFist() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is queue");
+        if (isEmpty()) throw new NoSuchElementException("Deque is empty");
         T item = (T) array[start];
         size--;
         start++;
@@ -75,7 +75,7 @@ public class MyDeque<T> {
     }
 
     public T pollLast() {
-        if (isEmpty()) throw new NoSuchElementException("Stack is empty");
+        if (isEmpty()) throw new NoSuchElementException("Deque is empty");
         end = (end - 1 + array.length) % array.length;
         T item = (T) array[end];
         size--;
