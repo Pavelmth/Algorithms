@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Random;
+
 /**
  * Unit test for simple App.
  */
@@ -91,5 +93,44 @@ public class AppTest {
         Assert.assertEquals(4, myArrayList.get(5));
         assertTrue(myArrayList.add(3, 9));
         Assert.assertEquals(9, myArrayList.get(3));
+    }
+
+    @Test
+    public void sortBubble() {
+        System.out.println("Bubble sort:");
+        Random random = new Random();
+        for (int i = 0; i < 100_000; i++) {
+            myArrayList.add(random.nextInt(100_000));
+        }
+        long start = System.currentTimeMillis();
+        myArrayList.sortBubble();
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "\n");
+    }
+
+    @Test
+    public void sortSelect() {
+        System.out.println("Select sort:");
+        Random random = new Random();
+        for (int i = 0; i < 100_000; i++) {
+            myArrayList.add(random.nextInt(100_000));
+        }
+        long start = System.currentTimeMillis();
+        myArrayList.sortSelect();
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "\n");
+    }
+
+    @Test
+    public void sortInsert() {
+        System.out.println("Insert sort:");
+        Random random = new Random();
+        for (int i = 0; i < 100_000; i++) {
+            myArrayList.add(random.nextInt(100_000));
+        }
+        long start = System.currentTimeMillis();
+        myArrayList.sortInsert();
+        long end = System.currentTimeMillis();
+        System.out.println(end - start + "\n");
     }
 }

@@ -91,33 +91,48 @@ public class MyArrayList<T> {
         return stringBuilder.toString();
     }
 
-    public boolean sortSelectionInteger() {
-        if (size < 2) {
-            return true;
-        } else  {
-
-            return true;
+    public void sortInsert(){
+        int in, out;
+        for(out = 1;out < this.size; out++){
+            int temp = (int) this.array[out];
+            in = out;
+            while(in > 0 && (int) this.array[in-1] >= temp){
+                this.array[in] = this.array[in-1];
+                --in;
+            }
+            this.array[in] = temp;
         }
     }
 
-    private Integer selectionSort(Object[] array) {
-        Integer smalest = (Integer) array[0];
-        int smallestIndex = 0;
-        for (int i = 0; i < array.length; i++) {
-            if ((Integer) array[i] < smalest) {
-                smalest = (Integer) array[i];
-                smallestIndex = i;
+
+    public void sortSelect() {
+        int out, in, mark;
+        for (out = 0; out < this.size; out++) {
+            mark = out;
+            for(in = out + 1; in < this.size; in++) {
+                if ((int) this.array[in] < (int) this.array[mark]) {
+                    mark = in;
+                }
+            }
+            change(out, mark);
+        }
+    }
+
+    public void sortBubble() {
+        int out, in;
+        for (out = this.size - 1; out >= 1; out--) {
+            for (in = 0; in < out; in++) {
+                if ((int) this.array[in] > (int) this.array[in + 1]) {
+                    change(in, in + 1);
+                }
             }
         }
-        return smallestIndex;
     }
 
-    public boolean sortQuick() {
-        if (size < 2) {
-            return true;
-        } else {
-            return true;
-        }
+    private void change(int a, int b) {
+        int tmp = (int) this.array[a];
+        this.array[a] = this.array[b];
+        this.array[b] = tmp;
     }
 }
 
