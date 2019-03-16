@@ -100,7 +100,7 @@ public class MyLinkedListTest {
     }
 
     @Test
-    public void testAddLstGet() {
+    public void testAddLastGet() {
         myLinkedList.addLast(c);
         myLinkedList.addLast(c);
         myLinkedList.addLast(c);
