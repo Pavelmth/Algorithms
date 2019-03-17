@@ -9,10 +9,15 @@ public class MyTreeMap<T extends Comparable<T>, V> {
         Node left;
         Node right;
         int size;
-        public Node(T key, V value, int size) {
+        int height;
+        boolean isBalanced;
+
+        public Node(T key, V value, int size, int height, boolean isBalanced) {
             this.key = key;
             this.value = value;
             this.size = size;
+            this.height = height;
+            this.isBalanced = isBalanced;
         }
     }
 
@@ -20,6 +25,10 @@ public class MyTreeMap<T extends Comparable<T>, V> {
 
     public boolean isEmpty() {
         return root == null;
+    }
+
+    public boolean isBalanced() {
+        return root.isBalanced;
     }
 
     public int size() {
@@ -31,6 +40,18 @@ public class MyTreeMap<T extends Comparable<T>, V> {
             return 0;
         } else {
             return node.size;
+        }
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node node) {
+        if (node == null) {
+            return 0;
+        } else {
+            return node.height;
         }
     }
 
@@ -69,7 +90,7 @@ public class MyTreeMap<T extends Comparable<T>, V> {
             throw new IllegalArgumentException("Where can't be key with null");
         }
         if (node == null) {
-            return new Node(key, value, 1);
+            return new Node(key, value, 1, 0, true);
         }
         int cmp = key.compareTo(node.key);
         if (cmp == 0) {
@@ -79,8 +100,31 @@ public class MyTreeMap<T extends Comparable<T>, V> {
         } else {
             node.right = put(node.right, key, value);
         }
-
         node.size = size(node.left) + size(node.right) + 1;
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        if (node.left == null && node.right == null) {
+            node.height = 0;
+        } else if (height(node.right) >= height(node.left) || node.left == null) {
+            node.height = height(node.right) + 1;
+        } else if (height(node.right) <= height(node.left) || node.right == null){
+            node.height = height(node.left) + 1;
+        }
+
+        if (!node.isBalanced) {
+            node.isBalanced = false;
+        } else if (node.left == null && node.right == null) {
+            node.isBalanced = true;
+        } else if (node.left == null && node.right.height > 1) {
+            node.isBalanced = false;
+        } else if (node.right == null && node.left.height > 1) {
+            node.isBalanced = false;
+        } else if (node.left != null && node.right != null) {
+            if ((Math.abs(node.left.height - node.right.height) > 1)) {
+                node.isBalanced = false;
+            }
+        }
+
         return node;
     }
 
@@ -169,6 +213,30 @@ public class MyTreeMap<T extends Comparable<T>, V> {
             node.right = tmp.right;
         }
         node.size = size(node.left) + size(node.right) + 1;
+
+        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        if (node.left == null && node.right == null) {
+            node.height = 0;
+        } else if (height(node.right) >= height(node.left) || node.left == null) {
+            node.height = height(node.right) + 1;
+        } else if (height(node.right) <= height(node.left) || node.right == null){
+            node.height = height(node.left) + 1;
+        }
+
+        if (!node.isBalanced) {
+            node.isBalanced = false;
+        } else if (node.left == null && node.right == null) {
+            node.isBalanced = true;
+        } else if (node.left == null && node.right.height > 1) {
+            node.isBalanced = false;
+        } else if (node.right == null && node.left.height > 1) {
+            node.isBalanced = false;
+        } else if (node.left != null && node.right != null) {
+            if ((Math.abs(node.left.height - node.right.height) > 1)) {
+                node.isBalanced = false;
+            }
+        }
+
         return node;
     }
 }
