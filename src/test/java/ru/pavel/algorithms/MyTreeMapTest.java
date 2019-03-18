@@ -88,7 +88,7 @@ public class MyTreeMapTest {
         myTreeMap.put(2, 1);
         Assert.assertTrue(myTreeMap.isBalanced());
         myTreeMap.put(3, 1);
-        Assert.assertTrue(myTreeMap.isBalanced());
+        Assert.assertFalse(myTreeMap.isBalanced());
         myTreeMap.put(4, 1);
         Assert.assertFalse(myTreeMap.isBalanced());
     }

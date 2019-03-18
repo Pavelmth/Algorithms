@@ -102,7 +102,6 @@ public class MyTreeMap<T extends Comparable<T>, V> {
         }
         node.size = size(node.left) + size(node.right) + 1;
 
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         if (node.left == null && node.right == null) {
             node.height = 0;
         } else if (height(node.right) >= height(node.left) || node.left == null) {
@@ -115,12 +114,10 @@ public class MyTreeMap<T extends Comparable<T>, V> {
             node.isBalanced = false;
         } else if (node.left == null && node.right == null) {
             node.isBalanced = true;
-        } else if (node.left == null && node.right.height > 1) {
-            node.isBalanced = false;
-        } else if (node.right == null && node.left.height > 1) {
+        } else if ((node.left == null && node.right.height > 0) || (node.right == null && node.left.height > 0)) {
             node.isBalanced = false;
         } else if (node.left != null && node.right != null) {
-            if ((Math.abs(node.left.height - node.right.height) > 1)) {
+            if ((Math.abs(node.left.height - node.right.height) > 0)) {
                 node.isBalanced = false;
             }
         }
@@ -214,7 +211,6 @@ public class MyTreeMap<T extends Comparable<T>, V> {
         }
         node.size = size(node.left) + size(node.right) + 1;
 
-        //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         if (node.left == null && node.right == null) {
             node.height = 0;
         } else if (height(node.right) >= height(node.left) || node.left == null) {
@@ -223,16 +219,12 @@ public class MyTreeMap<T extends Comparable<T>, V> {
             node.height = height(node.left) + 1;
         }
 
-        if (!node.isBalanced) {
-            node.isBalanced = false;
-        } else if (node.left == null && node.right == null) {
+        if (node.left == null && node.right == null) {
             node.isBalanced = true;
-        } else if (node.left == null && node.right.height > 1) {
-            node.isBalanced = false;
-        } else if (node.right == null && node.left.height > 1) {
+        } else if ((node.left == null && node.right.height > 0) || (node.right == null && node.left.height > 0)) {
             node.isBalanced = false;
         } else if (node.left != null && node.right != null) {
-            if ((Math.abs(node.left.height - node.right.height) > 1)) {
+            if ((Math.abs(node.left.height - node.right.height) > 0)) {
                 node.isBalanced = false;
             }
         }
