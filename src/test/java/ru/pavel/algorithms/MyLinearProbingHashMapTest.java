@@ -58,8 +58,19 @@ public class MyLinearProbingHashMapTest {
         myLinearProbingHashMap.put('a', 2);
         myLinearProbingHashMap.put('x', 5);
         myLinearProbingHashMap.put('r', 7);
+        myLinearProbingHashMap.put('c', 11);
+        myLinearProbingHashMap.put('d', 15);
+        myLinearProbingHashMap.put('u', 19);
+        myLinearProbingHashMap.put('t', 21);
+        myLinearProbingHashMap.put('p', 24);
         Assert.assertTrue(myLinearProbingHashMap.contains('x'));
         myLinearProbingHashMap.remove('x');
         Assert.assertFalse(myLinearProbingHashMap.contains('x'));
+        myLinearProbingHashMap.remove('a');
+        myLinearProbingHashMap.remove('r');
+        myLinearProbingHashMap.remove('c');
+        myLinearProbingHashMap.remove('d');
+        myLinearProbingHashMap.remove('u');
+        myLinearProbingHashMap.remove('t');
     }
 }

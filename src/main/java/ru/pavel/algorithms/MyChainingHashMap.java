@@ -1,19 +1,20 @@
 package ru.pavel.algorithms;
 
 public class MyChainingHashMap<T, V> {
-    private final int M = 97;
+    private int M = 97;
     private int size = 0;
-    //make stretching list
     private Object[] st = new Object[M];
     private class Node {
         T key;
         V value;
         Node next;
+        Node previous;
 
-        public Node(T key, V value, Node next) {
+        public Node(T key, V value, Node next, Node previous) {
             this.key = key;
             this.value = value;
             this.next = next;
+            this.previous = previous;
         }
     }
 
@@ -61,11 +62,10 @@ public class MyChainingHashMap<T, V> {
             }
             x = x.next;
         }
-        st[i] = new Node(key, value, (Node) st[i]);
+        st[i] = new Node(key, value, (Node) st[i], (Node) st[i]);
         size++;
     }
 
-    //home task, create double way list
     public V remove(T key) {
         if (key == null) {
             throw new IllegalArgumentException("Key can't be null");

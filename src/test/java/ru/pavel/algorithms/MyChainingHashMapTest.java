@@ -58,6 +58,11 @@ public class MyChainingHashMapTest {
         myChainingHashMap.put('a', 2);
         myChainingHashMap.put('x', 5);
         myChainingHashMap.put('r', 7);
+        myChainingHashMap.put('c', 11);
+        myChainingHashMap.put('d', 15);
+        myChainingHashMap.put('u', 19);
+        myChainingHashMap.put('t', 21);
+        myChainingHashMap.put('p', 24);
         Assert.assertTrue(myChainingHashMap.contains('x'));
         myChainingHashMap.remove('x');
         Assert.assertFalse(myChainingHashMap.contains('x'));
